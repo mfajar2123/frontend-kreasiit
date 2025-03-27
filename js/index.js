@@ -50,7 +50,7 @@ $(document).ready(function() {
                 </div>
                 <p class="card-text flex-grow-1">${previewContent}</p>
                 <!-- <a href="/blog.html/${blog.id}" class="btn btn-primary mt-auto">Baca Selengkapnya</a> -->
-                 <a href="/blog.html" class="btn btn-primary mt-auto">Baca Selengkapnya</a>
+                 <a href="blog.html" class="btn btn-primary mt-auto">Baca Selengkapnya</a>
               </div>
             </div>
           </div>
