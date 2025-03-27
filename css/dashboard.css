@@ -1,0 +1,288 @@
+:root {
+  --danger-color: #697565;    /* Palet: #697565 */
+  --warning-color: #ECDFCC;   /* Palet: #ECDFCC */
+  --primary-color: #697565;   /* Muted green */
+  --secondary-color: #3C3D37; /* Dark gray */
+  --accent-color: #ECDFCC;    /* Light cream */
+  --light-color: #ECDFCC;     /* Light cream */
+  --dark-color: #181C14;      /* Very dark green/black */
+  --transition: all 0.3s ease;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--light-color);
+  color: var(--dark-color);
+  padding-top: 0;
+  margin: 0;
+}
+
+/* Navbar Styling */
+.navbar {
+  background-color: var(--light-color);
+  box-shadow: 0 0.15rem 1.75rem 0 rgba( var(--secondary-color-rgb, 60, 61, 55), 0.15);
+  /* Jika perlu, Anda bisa mengonversi var(--secondary-color) ke rgb: misal, rgb(60, 61, 55) */
+  transition: var(--transition);
+}
+
+.navbar-brand {
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.nav-link {
+  font-weight: 500;
+  margin: 0 10px;
+  position: relative;
+  padding: 0.5rem 0;
+  color: var(--primary-color);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--primary-color);
+  transition: var(--transition);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Sidebar Styling */
+.sidebar {
+  min-height: 100vh;
+  background: linear-gradient(180deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  color: var(--accent-color);
+  box-shadow: 0 0.15rem 1.75rem 0 rgba(60, 61, 55, 0.15);
+  transition: var(--transition);
+}
+
+.sidebar-heading {
+  font-weight: 700;
+  font-size: 1.2rem;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  letter-spacing: 0.1rem;
+}
+
+.nav-item {
+  margin-bottom: 0.5rem;
+}
+
+.nav-link {
+  color: var(--accent-color);
+  font-weight: 500;
+  padding: 1rem;
+  border-radius: 0.35rem;
+  transition: var(--transition);
+}
+
+.nav-link:hover, 
+.nav-link.active {
+  color: var(--accent-color);
+  background-color: rgba( var(--accent-color-rgb, 236, 223, 204), 0.1 );
+  /* Jika diperlukan, konversikan var(--accent-color) ke rgb, misal rgb(236, 223, 204) */
+}
+
+/* Card Styling */
+.card {
+  border: none;
+  border-radius: 0.35rem;
+  box-shadow: 0 0.15rem 1.75rem 0 rgba(60, 61, 55, 0.1);
+  transition: transform 0.2s;
+  background-color: var(--light-color);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card-header {
+  background-color: var(--light-color);
+  border-bottom: 1px solid var(--warning-color);
+  font-weight: 700;
+  color: var(--dark-color);
+}
+
+/* Button Styling */
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  transition: var(--transition);
+}
+
+.btn-primary:hover {
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+}
+
+.btn-success {
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+}
+
+.btn-danger {
+  background-color: var(--danger-color);
+  border-color: var(--danger-color);
+}
+
+.btn-warning {
+  background-color: var(--warning-color);
+  border-color: var(--warning-color);
+}
+
+/* Form Control Focus */
+.form-control:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.25rem rgba(24, 28, 20, 0.25);
+}
+
+/* Dashboard Blog Content */
+.blog-content {
+  font-size: 1rem;
+  line-height: 1.7;
+  white-space: pre-line;
+  padding: 1rem;
+  background-color: var(--light-color);
+  border-radius: 0.375rem;
+  overflow-y: auto;
+}
+
+/* Modified Blog Cards in Dashboard */
+.blog-card {
+  transition: var(--transition);
+  overflow: hidden;
+}
+
+.blog-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+/* Pagination Styling */
+.pagination .page-item.active .page-link {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.pagination .page-link {
+  color: var(--primary-color);
+}
+
+/* Custom Switch */
+.form-switch .form-check-input:checked {
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+}
+
+/* Footer Styling */
+footer {
+  background-color: var(--light-color);
+  border-top: 1px solid var(--warning-color);
+  padding: 1rem;
+  color: var(--dark-color);
+}
+
+/* Toast Container */
+#toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1060;
+}
+
+.toast {
+  min-width: 300px;
+}
+
+/* Loading Spinner Overlay */
+.spinner-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(236, 223, 204, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+  color: var(--primary-color);
+}
+
+/* Animation Effects */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s;
+}
+
+/* Dashboard Section Visibility */
+#dashboardSection {
+  transition: opacity 0.3s ease;
+}
+
+#dashboardSection:not(.fade-in) {
+  opacity: 0;
+  display: none !important;
+}
+
+/* Blog View & Edit Modal Styles */
+.blog-view-container {
+  padding: 0.5rem;
+}
+
+.blog-header {
+  border-bottom: 1px solid var(--warning-color);
+  padding-bottom: 1rem;
+}
+
+.blog-meta {
+  color: var(--secondary-color);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.blog-meta i {
+  margin-right: 5px;
+}
+
+.blog-meta span {
+  margin-right: 15px;
+}
+
+/* Toast Container Alternative */
+.toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1090;
+}
+
+.btn-back {
+  background-color: var(--secondary-color);
+  border: none;
+  color: white;
+  border-radius: 7px;
+  margin-left: 15px;
+  padding: 10px;
+  transition: var(--transition);
+}
+
+.btn-back:hover {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}

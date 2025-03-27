@@ -1,0 +1,205 @@
+
+      :root {
+        --primary-color: #3c3d37;
+        --secondary-color: #697565;
+        --accent-color: #8b9e8b;
+        --background-color: #f4f1e6;
+        --text-color: #3c3d37;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: var(--background-color);
+        color: var(--text-color);
+        margin: 0;
+        padding-top: 55px;
+      }
+
+      /* Navbar Styling */
+      .navbar {
+        background-color: #3c3d37 !important;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 0.8rem 1rem;
+      }
+
+      .navbar-brand {
+        font-weight: 700;
+        font-size: 1.5rem;
+        color: #ecdfcc !important;
+      }
+
+      .nav-link {
+        font-weight: 500;
+        margin: 0 10px;
+        position: relative;
+        padding: 0.5rem 0;
+        color: #ecdfcc !important;
+      }
+
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: #697565;
+        transition: width 0.3s ease;
+      }
+
+      .nav-link:hover::after {
+        width: 100%;
+      }
+
+      /* Blog Container */
+      #blog-container {
+        display: grid;
+        grid-template-columns: 1fr 350px;
+        gap: 20px;
+        padding: 2rem;
+      }
+
+      /* Blog List and Detail Container */
+      #blog-list-container,
+      #blog-detail-container {
+        background-color: white;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+      }
+
+      #blog-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+      }
+
+      .blog-card {
+        border: none;
+        border-radius: 0.5rem;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        background-color: white;
+      }
+
+      .blog-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+      }
+
+      .blog-card .card-img-top {
+        height: 200px;
+        object-fit: cover;
+        border-top-left-radius: 0.5rem;
+        border-top-right-radius: 0.5rem;
+      }
+
+      .blog-meta {
+        color: var(--secondary-color);
+        font-size: 0.9rem;
+      }
+
+      /* Sidebar Styling */
+      #blog-sidebar {
+        background-color: var(--secondary-color);
+        color: var(--background-color);
+        padding: 20px;
+        border-radius: 0.5rem;
+        max-height: 80vh;
+        overflow-y: auto;
+      }
+
+      .sidebar-blog-list {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      .sidebar-blog-item {
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 0.3rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .sidebar-blog-item:hover {
+        background-color: var(--accent-color);
+      }
+
+      /* Loading Spinner Overlay */
+      .spinner-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(244, 241, 230, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1050;
+      }
+
+      footer {
+        background-color: #3C3D37;
+        padding: 60px 0 25px;
+       
+        color: #ECDFCC;
+      }
+      
+      .footer-heading {
+        color: white;
+        font-weight: 600;
+        margin-bottom: 20px;
+      }
+      
+      .footer-link {
+        
+        color: rgba(236, 223, 204, 0.7);
+        display: block;
+        margin-bottom: 10px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+      
+      .footer-link:hover {
+        color: white;
+        transform: translateX(5px);
+      }
+      
+      .social-icons a {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        
+        border-radius: 50%;
+        text-align: center;
+        line-height: 40px;
+        margin-right: 10px;
+        transition: all 0.3s ease;
+        background-color: rgba(236, 223, 204, 0.1);
+        color: #ECDFCC;
+      }
+      
+      .social-icons a:hover {
+        background-color: #697565;
+        
+        transform: translateY(-5px);
+      }
+      
+      .copyright {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 20px;
+        margin-top: 40px;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      /* Custom navbar toggler color */
+.navbar-toggler {
+  border-color: rgba(255,255,255,0.5) !important; /* Warna border */
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+}
+  

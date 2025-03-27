@@ -1,0 +1,98 @@
+:root {
+    /* Menggunakan palette yang disediakan */
+    --primary-color: #181C14;    /* Warna gelap sebagai primary */
+    --secondary-color: #3C3D37;  /* Warna abu-abu gelap */
+    --danger-color: #697565;     /* Warna coklat abu-abu */
+    --warning-color: #ECDFCC;    /* Warna krem terang */
+    --dark-color: #181C14;       /* Menggunakan primary untuk teks gelap */
+    --light-color: #ECDFCC;      /* Background terang */
+  }
+  
+  body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--light-color);
+    color: var(--dark-color);
+    padding-top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+  .login-container {
+    max-width: 400px;
+  }
+  
+  .card {
+    border: none;
+    border-radius: 0.35rem;
+    /* Gunakan warna secondary untuk bayangan dengan opacity rendah */
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(60, 61, 55, 0.1);
+    transition: transform 0.2s;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    
+  }
+
+  .btn-primary:hover {
+    background-color: var(--secondary-color); /* Ganti dengan warna yang diinginkan */
+    border-color: var(--secondary-color);
+  }
+  
+  
+  .form-control:focus {
+    border-color: var(--primary-color);
+    /* Gunakan primary dengan opacity sebagai efek fokus */
+    box-shadow: 0 0 0 0.25rem rgba(24, 28, 20, 0.25);
+  }
+  
+  /* Toast container */
+  #toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1060;
+  }
+  
+  .toast {
+    min-width: 300px;
+  }
+  
+  /* Animation for fade in */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  .fade-in {
+    animation: fadeIn 0.5s;
+  }
+  
+  /* Loading spinner */
+  .spinner-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Gunakan light-color dengan opacity untuk overlay */
+    background-color: rgba(236, 223, 204, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  
+  .spinner-border {
+    width: 3rem;
+    height: 3rem;
+    color: var(--primary-color);
+  }
+  
