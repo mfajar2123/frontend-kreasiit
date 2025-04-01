@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /login
+
+
+Sitemap: https://kreasi-it.netlify.app/sitemap.xml
