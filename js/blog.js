@@ -1,11 +1,11 @@
 // Initialize AOS with responsive settings
-AOS.init({
-  duration: 800,
-  once: true,
-  disable: 'mobile' // Disable AOS on mobile for better performance
-});
-
 $(document).ready(function () {
+  AOS.init({
+    duration: 800,
+    once: true,
+    disable: 'phone' // Changed from 'mobile' to 'phone' for better compatibility
+  });
+
   // Show/hide loading spinner
   function showSpinner() {
     $("#spinner").show();
@@ -33,10 +33,13 @@ $(document).ready(function () {
   // Load blog posts via AJAX
   function loadBlogs() {
     showSpinner();
+    
+    // Add error handling for the AJAX request
     $.ajax({
       url: "https://backendkreasiit-production.up.railway.app/api/blogs",
       method: "GET",
       dataType: "json",
+      timeout: 10000, // Add timeout to prevent hanging requests
       success: function (data) {
         // Sort by createdAt descending
         data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
@@ -61,11 +64,11 @@ $(document).ready(function () {
 
         $.each(latestBlogs, function (index, blog) {
           const formattedDate = formatDate(blog.createdAt);
-          const truncatedContent = truncateText(blog.content, 100);
-
-          // Blog Card (in list)
+          const truncatedContent = truncateText(blog.content || "No content available", 100); // Add fallback for null content
+          
+          // Blog Card (in list) - simplified for mobile
           const blogCard = `
-            <div class="col-xl-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="${(index % 3) * 100}">
+            <div class="col-xl-4 col-md-6 mb-4">
               <div class="card blog-card h-100">
                 <img src="./img/blog_template.png" class="card-img-top" alt="${blog.title}">
                 <div class="card-body d-flex flex-column">
@@ -98,19 +101,25 @@ $(document).ready(function () {
           $("#sidebar-blog-titles").append(sidebarItem);
         });
 
+        // Make sure AOS is refreshed after content is loaded
+        setTimeout(() => {
+          AOS.refresh();
+        }, 200);
+        
         hideSpinner();
       },
       error: function (xhr, status, error) {
+        console.error("AJAX Error:", status, error);
+        
         $("#blog-list").html(`
           <div class="col-12 text-center">
             <div class="alert alert-danger" role="alert">
               <i class="fas fa-exclamation-triangle me-2"></i>
-              Gagal memuat blog terbaru. Silakan coba lagi nanti.
+              Gagal memuat blog terbaru. Silakan coba lagi nanti. (${status})
             </div>
           </div>
         `);
         hideSpinner();
-        console.error("Error loading blog data:", error);
       },
     });
   }
@@ -122,12 +131,13 @@ $(document).ready(function () {
       url: "https://backendkreasiit-production.up.railway.app/api/blogs/" + id,
       method: "GET",
       dataType: "json",
+      timeout: 10000, // Add timeout
       success: function (blog) {
         // Format blog detail content
         const formattedDate = formatDate(blog.createdAt);
         
         // Process content to add proper paragraph tags
-        let formattedContent = blog.content;
+        let formattedContent = blog.content || "Content not available";
         if (!formattedContent.includes('<p>')) {
           formattedContent = formattedContent.split('\n\n')
             .map(para => `<p>${para.replace(/\n/g, '<br>')}</p>`)
@@ -135,11 +145,11 @@ $(document).ready(function () {
         }
         
         const detailContent = `
-          <div class="blog-header text-center" data-aos="fade-down">
+          <div class="blog-header text-center">
             <h2 style="color: var(--primary-color);">${blog.title}</h2>
-            <img src="./img/blog_template.png" alt="Gambar ${blog.title}" class="img-fluid mt-3" style="max-width: 70%; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+            <img src="./img/blog_template.png" alt="Gambar ${blog.title}" class="img-fluid mt-3" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
           </div>
-          <div class="d-flex justify-content-between align-items-center my-3 p-2 bg-light rounded" data-aos="fade-right">
+          <div class="d-flex justify-content-between align-items-center my-3 p-2 bg-light rounded">
             <div class="blog-meta">
               <i class="fas fa-user"></i> ${blog.authorUsername}
             </div>
@@ -148,10 +158,10 @@ $(document).ready(function () {
             </div>
           </div>
           <hr>
-          <div class="blog-content" data-aos="fade-up" style="font-size: 1rem; line-height: 1.6; color: var(--text-color); padding: 1rem; text-align: justify;">
+          <div class="blog-content" style="font-size: 1rem; line-height: 1.6; color: var(--text-color); padding: 1rem; text-align: justify;">
             ${formattedContent}
           </div>
-          <div class="mt-4 p-3 bg-light rounded" data-aos="fade-up">
+          <div class="mt-4 p-3 bg-light rounded">
             <h5>Bagikan:</h5>
             <div class="d-flex gap-2">
               <a href="#" class="btn btn-sm" style="background-color: #3b5998; color: white;"><i class="fab fa-facebook-f"></i></a>
@@ -164,43 +174,30 @@ $(document).ready(function () {
   
         $("#blog-detail").html(detailContent);
         
-        // Tampilkan detail dan sembunyikan list
+        // Force hide list and show detail with inline styles
         $("#blog-list-container").hide();
-        
-        // Paksa elemen hero benar-benar disembunyikan dengan CSS inline
+        $("#hero").css("display", "none");
         $("#hero").attr("style", "display: none !important");
-        
         $("#blog-detail-container").show();
-        
-        // Re-initialize AOS for new content
-        AOS.refresh();
-        
-        // Scroll to top of page
-        window.scrollTo(0, 0);
         
         hideSpinner();
         
-        // Tambahkan pengecekan ulang setelah jeda waktu singkat
-        setTimeout(() => {
-          if ($("#hero").is(":visible")) {
-            console.log("Hero masih terlihat setelah timeout, memaksa hide lagi");
-            $("#hero").attr("style", "display: none !important");
-          }
-        }, 100);
+        // Scroll to top of page
+        window.scrollTo(0, 0);
       },
-      error: function () {
+      error: function (xhr, status, error) {
+        console.error("Detail Error:", status, error);
+        
         hideSpinner();
         $("#blog-detail").html(`
           <div class="alert alert-danger" role="alert">
             <i class="fas fa-exclamation-triangle me-2"></i>
-            Gagal memuat detail blog. Silakan coba lagi nanti.
+            Gagal memuat detail blog. Silakan coba lagi nanti. (${status})
           </div>
         `);
         $("#blog-detail-container").show();
         $("#blog-list-container").hide();
-        
-        // Paksa elemen hero benar-benar disembunyikan
-        $("#hero").attr("style", "display: none !important");
+        $("#hero").css("display", "none");
       },
     });
   }
@@ -215,11 +212,10 @@ $(document).ready(function () {
   $("#backToList").on("click", function () {
     $("#blog-detail-container").hide();
     $("#blog-list-container").show();
-    $("#hero").show();
+    $("#hero").css("display", "");
     
-    // Small delay to ensure the hero is visible before scrolling
+    // Re-initialize AOS
     setTimeout(() => {
-      // Re-initialize AOS
       AOS.refresh();
     }, 100);
   });
@@ -237,6 +233,10 @@ $(document).ready(function () {
       $('.navbar').removeClass('shadow');
     }
   });
+
+  // Log device info for debugging
+  console.log("User Agent:", navigator.userAgent);
+  console.log("Window Width:", $(window).width());
 
   // Load blogs saat halaman siap
   loadBlogs();
